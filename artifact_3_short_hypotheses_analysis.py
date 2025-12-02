@@ -1,3 +1,4 @@
+import argparse
 import json
 import re
 from pathlib import Path
@@ -7,9 +8,21 @@ import pandas as pd
 
 matplotlib.use("Agg")
 
+argp = argparse.ArgumentParser(
+    description="Analyze hypothesis length effects from eval outputs."
+)
+argp.add_argument(
+    "--challenge",
+    action="store_true",
+    help="Use eval_output_challenge and write plots under plots_challenge.",
+)
+args = argp.parse_args()
+
 base_dir = Path(__file__).resolve().parent
-path = base_dir / "eval_output" / "eval_predictions.jsonl"
-plots_dir = base_dir / "plots" / "artifact_3_short_hypotheses"
+output_dir_name = "eval_output_challenge" if args.challenge else "eval_output"
+plots_root = "plots_challenge" if args.challenge else "plots"
+path = base_dir / output_dir_name / "eval_predictions.jsonl"
+plots_dir = base_dir / plots_root / "artifact_3_short_hypotheses"
 plots_dir.mkdir(parents=True, exist_ok=True)
 
 id2label = {0: "entailment", 1: "neutral", 2: "contradiction"}
