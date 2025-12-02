@@ -81,7 +81,7 @@ pred_dist_norm = pred_dist.div(pred_dist.sum(axis=1).replace(0, 1), axis=0)
 print("\nPrediction distribution by bucket (share within bucket):")
 print(pred_dist_norm.to_string(float_format=lambda x: f"{x:.2f}"))
 
-# Plots for clarity
+# Plots
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.hist(df["length"], bins=20, color="steelblue", edgecolor="white")
 ax.axvline(4, color="darkorange", linestyle="--", label="short/medium cutoff")

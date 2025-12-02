@@ -95,7 +95,7 @@ print(
     f"(n={len(subset)}): {rate:.2%}"
 )
 
-# Plots for clarity
+# Plots
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.hist(df["overlap"], bins=20, color="steelblue", edgecolor="white")
 ax.axvline(0.3, color="darkorange", linestyle="--", label="low/medium cutoff")

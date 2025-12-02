@@ -97,7 +97,7 @@ print(pred_dist_df.to_string(float_format=lambda x: f"{x:.2f}"))
 print("\nAccuracy when a negation word is present:")
 print(acc_by_word.to_string(float_format=lambda x: f"{x:.2%}"))
 
-
+# Plots
 def plot_distribution(dist_df, title, filename):
     ax = dist_df[labels].plot(kind="bar", stacked=True, figsize=(10, 5))
     ax.set_ylabel("Share within word")
