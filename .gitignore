@@ -1,3 +1,4 @@
 *.pyc
 eval_output*/
 plots*/
+trained_model*/checkpoint*/
