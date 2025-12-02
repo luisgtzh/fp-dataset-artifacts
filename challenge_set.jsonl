@@ -1,12 +1,3 @@
-{"premise": "The man is smiling at his friend.", "hypothesis": "The man is not sad.", "label": 0}
-{"premise": "The man is smiling at his friend.", "hypothesis": "The man is not smiling.", "label": 2}
-{"premise": "The man is smiling at his friend.", "hypothesis": "The man is not sure what will happen next.", "label": 1}
-{"premise": "A woman is laughing while talking on the phone.", "hypothesis": "The woman is not crying.", "label": 0}
-{"premise": "A woman is laughing while talking on the phone.", "hypothesis": "The woman is not making any sound.", "label": 2}
-{"premise": "A woman is laughing while talking on the phone.", "hypothesis": "The woman is not at home.", "label": 1}
-{"premise": "Children are running happily through the park.", "hypothesis": "The children are not walking slowly.", "label": 0}
-{"premise": "Children are running happily through the park.", "hypothesis": "The children are not moving at all.", "label": 2}
-{"premise": "Children are running happily through the park.", "hypothesis": "The children are not thinking about school.", "label": 1}
 {"premise": "A chef is proudly presenting a finished dish in a restaurant kitchen.", "hypothesis": "The chef is not ashamed of the food.", "label": 0}
 {"premise": "A chef is proudly presenting a finished dish in a restaurant kitchen.", "hypothesis": "The chef is not cooking anything.", "label": 2}
 {"premise": "A chef is proudly presenting a finished dish in a restaurant kitchen.", "hypothesis": "The chef is not working alone in the restaurant.", "label": 1}
@@ -28,15 +19,6 @@
 {"premise": "Friends are hiking together up a sunny mountain trail.", "hypothesis": "The friends are not sitting on a couch indoors.", "label": 0}
 {"premise": "Friends are hiking together up a sunny mountain trail.", "hypothesis": "The friends are not outside.", "label": 2}
 {"premise": "Friends are hiking together up a sunny mountain trail.", "hypothesis": "The friends are not planning to hike alone next time.", "label": 1}
-{"premise": "A woman is playing violin on a small stage.", "hypothesis": "A woman is playing an instrument on a small stage.", "label": 0}
-{"premise": "A woman is playing violin on a small stage.", "hypothesis": "A woman is playing the piano on a small stage.", "label": 2}
-{"premise": "A woman is playing violin on a small stage.", "hypothesis": "A woman is playing violin on a small outdoor stage.", "label": 1}
-{"premise": "A man is riding a red bicycle down the street.", "hypothesis": "A man is riding a bicycle down the street.", "label": 0}
-{"premise": "A man is riding a red bicycle down the street.", "hypothesis": "A man is riding a red motorcycle down the street.", "label": 2}
-{"premise": "A man is riding a red bicycle down the street.", "hypothesis": "A man is riding a red bicycle down a quiet street in the evening.", "label": 1}
-{"premise": "Two people are sitting quietly in a library reading books.", "hypothesis": "Two people are sitting quietly in a library.", "label": 0}
-{"premise": "Two people are sitting quietly in a library reading books.", "hypothesis": "Two people are sitting quietly in a library talking loudly.", "label": 2}
-{"premise": "Two people are sitting quietly in a library reading books.", "hypothesis": "Two people are sitting quietly in the library before class.", "label": 1}
 {"premise": "A girl is drawing pictures with colored pencils at a table.", "hypothesis": "A girl is drawing pictures at a table.", "label": 0}
 {"premise": "A girl is drawing pictures with colored pencils at a table.", "hypothesis": "A girl is drawing pictures with colored markers at a table.", "label": 1}
 {"premise": "A girl is drawing pictures with colored pencils at a table.", "hypothesis": "A girl is erasing pictures with colored pencils at a table.", "label": 2}
@@ -58,15 +40,6 @@
 {"premise": "A chef is slicing vegetables on a cutting board.", "hypothesis": "A chef is slicing vegetables.", "label": 0}
 {"premise": "A chef is slicing vegetables on a cutting board.", "hypothesis": "A chef is burning vegetables on a cutting board.", "label": 2}
 {"premise": "A chef is slicing vegetables on a cutting board.", "hypothesis": "A chef is slicing vegetables on a cutting board for a soup.", "label": 1}
-{"premise": "Two boys of opposing teams are playing football in full protective gear.", "hypothesis": "Boys sleep.", "label": 2}
-{"premise": "Two boys of opposing teams are playing football in full protective gear.", "hypothesis": "Boys argue.", "label": 1}
-{"premise": "Two boys of opposing teams are playing football in full protective gear.", "hypothesis": "Two boys wearing full protective gear are playing a game of football.", "label": 0}
-{"premise": "A woman is giving a presentation to a large audience.", "hypothesis": "People listen.", "label": 1}
-{"premise": "A woman is giving a presentation to a large audience.", "hypothesis": "She talks.", "label": 0}
-{"premise": "A woman is giving a presentation to a large audience.", "hypothesis": "A woman is giving a formal presentation to a large group of people in an auditorium.", "label": 0}
-{"premise": "A man is jogging alone on a forest trail.", "hypothesis": "Cars race.", "label": 2}
-{"premise": "A man is jogging alone on a forest trail.", "hypothesis": "He runs.", "label": 0}
-{"premise": "A man is jogging alone on a forest trail.", "hypothesis": "A man is jogging by himself along a quiet trail in the forest.", "label": 0}
 {"premise": "Children are sitting in a classroom during a lesson.", "hypothesis": "Kids sleep.", "label": 2}
 {"premise": "Children are sitting in a classroom during a lesson.", "hypothesis": "Kids learn.", "label": 1}
 {"premise": "Children are sitting in a classroom during a lesson.", "hypothesis": "Children are sitting at their desks in a classroom while a lesson is in progress.", "label": 0}
