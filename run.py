@@ -40,6 +40,11 @@ def main():
         By default, "nli" will use the SNLI dataset, and "qa" will use the SQuAD dataset.""")
     argp.add_argument('--dataset', type=str, default=None,
                       help="""This argument overrides the default dataset used for the specified task.""")
+    argp.add_argument(
+        '--challenge_file', '--challenge_fil', dest='challenge_file', type=str, default=None,
+        help="""Optional path to a local JSON/JSONL file to use for evaluation only (challenge set).
+        When provided with --do_eval, this file will be used as the evaluation data instead of the default dataset."""
+    )
     argp.add_argument('--max_length', type=int, default=128,
                       help="""This argument limits the maximum sequence length used during training/evaluation.
         Shorter sequence lengths need less memory and computation time, but some examples may end up getting truncated.""")
@@ -55,22 +60,30 @@ def main():
     # You need to format the dataset appropriately. For SNLI, you can prepare a file with each line containing one
     # example as follows:
     # {"premise": "Two women are embracing.", "hypothesis": "The sisters are hugging.", "label": 1}
-    if args.dataset.endswith('.json') or args.dataset.endswith('.jsonl'):
-        dataset_id = None
-        # Load from local json/jsonl file
-        dataset = datasets.load_dataset('json', data_files=args.dataset)
-        # By default, the "json" dataset loader places all examples in the train split,
-        # so if we want to use a jsonl file for evaluation we need to get the "train" split
-        # from the loaded dataset
-        eval_split = 'train'
-    else:
-        default_datasets = {'qa': ('squad',), 'nli': ('snli',)}
-        dataset_id = tuple(args.dataset.split(':')) if args.dataset is not None else \
-            default_datasets[args.task]
-        # MNLI has two validation splits (one with matched domains and one with mismatched domains). Most datasets just have one "validation" split
-        eval_split = 'validation_matched' if dataset_id == ('glue', 'mnli') else 'validation'
-        # Load the raw data
-        dataset = datasets.load_dataset(*dataset_id)
+    def load_main_dataset():
+        if args.dataset and (args.dataset.endswith('.json') or args.dataset.endswith('.jsonl')):
+            dataset_id = None
+            dataset = datasets.load_dataset('json', data_files=args.dataset)
+            eval_split = 'train'
+        else:
+            default_datasets = {'qa': ('squad',), 'nli': ('snli',)}
+            dataset_id = tuple(args.dataset.split(':')) if args.dataset is not None else \
+                default_datasets[args.task]
+            # MNLI has two validation splits (one with matched domains and one with mismatched domains). Most datasets just have one "validation" split
+            eval_split = 'validation_matched' if dataset_id == ('glue', 'mnli') else 'validation'
+            dataset = datasets.load_dataset(*dataset_id)
+        return dataset, dataset_id, eval_split
+
+    dataset = None
+    dataset_id = None
+    eval_split = None
+
+    # Only load the main dataset if we need it (training, or evaluation without a challenge file)
+    if training_args.do_train or (training_args.do_eval and not args.challenge_file):
+        dataset, dataset_id, eval_split = load_main_dataset()
+        if dataset_id == ('snli',):
+            # remove SNLI examples with no label
+            dataset = dataset.filter(lambda ex: ex['label'] != -1)
     
     # NLI models need to have the output label count specified (label 0 is "entailed", 1 is "neutral", and 2 is "contradiction")
     task_kwargs = {'num_labels': 3} if args.task == 'nli' else {}
@@ -109,6 +122,8 @@ def main():
     train_dataset_featurized = None
     eval_dataset_featurized = None
     if training_args.do_train:
+        if dataset is None:
+            raise ValueError("Training requested but no dataset available. Provide --dataset.")
         train_dataset = dataset['train']
         if args.max_train_samples:
             train_dataset = train_dataset.select(range(args.max_train_samples))
@@ -119,7 +134,14 @@ def main():
             remove_columns=train_dataset.column_names
         )
     if training_args.do_eval:
-        eval_dataset = dataset[eval_split]
+        if args.challenge_file:
+            challenge_dataset = datasets.load_dataset('json', data_files=args.challenge_file)
+            challenge_split = 'train' if 'train' in challenge_dataset else list(challenge_dataset.keys())[0]
+            eval_dataset = challenge_dataset[challenge_split]
+        else:
+            if dataset is None:
+                raise ValueError("Evaluation requested but no dataset available. Provide --dataset or --challenge_file.")
+            eval_dataset = dataset[eval_split]
         if args.max_eval_samples:
             eval_dataset = eval_dataset.select(range(args.max_eval_samples))
         eval_dataset_featurized = eval_dataset.map(
